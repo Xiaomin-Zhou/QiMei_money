@@ -1,13 +1,14 @@
 <template>
     <div>
-      Lable.vue
-      <Nav />
+        <Layout>
+            <p>Lable.vue</p>
+        </Layout>
     </div>
 </template>
 
 <script>
     export default {
-        
+        name:"Labels",
     }
 </script>
 
