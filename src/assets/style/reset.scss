@@ -7,3 +7,13 @@
     text-decoration: none;
     color: inherit;
   }
+  ul, ol{
+    list-style: none;
+  }
+  button, input{
+    font: inherit;
+  }
+  //去掉input事件 外面的框,注意 冒号
+  :focus{
+    outline: none;
+  }
