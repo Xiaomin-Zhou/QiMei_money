@@ -28,7 +28,7 @@
       } else {
         this.selectedTags.push(tag);
       }
-      console.log(this.selectedTags)
+      this.$emit('update:value', this.selectedTags)
     }
     create() {
       const name = window.prompt('请输入标签名');

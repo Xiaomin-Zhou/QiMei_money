@@ -61,7 +61,7 @@
       this.output = '0';
     }
     ok(){
-      console.log('不重要，占位')
+      this.$emit('update:value',this.output)
     }
  }
 </script>
