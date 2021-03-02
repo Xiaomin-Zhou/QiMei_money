@@ -37,7 +37,6 @@
 
 <style lang="scss" scoped>
 .tags {
-  border: 1px solid red;
     font-size: 14px;
     padding: 16px;
     flex-grow: 1;
