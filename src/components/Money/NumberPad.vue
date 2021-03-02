@@ -60,6 +60,9 @@
       clear() {
       this.output = '0';
     }
+    ok(){
+      console.log('不重要，占位')
+    }
  }
 </script>
 
