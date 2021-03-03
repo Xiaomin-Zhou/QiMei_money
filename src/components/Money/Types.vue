@@ -31,7 +31,7 @@
 
 <style lang="scss" scoped>
  .types{
-        background: #c4c4c4 ;
+        background: #64c6bb ;
         text-align: center;
         display: flex;
         font-size: 24px;
