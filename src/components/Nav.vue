@@ -41,7 +41,8 @@
       }
     }
     > .item.selected{
-      color: $color-highlight;
+      // color: $color-highlight;
+      color: darken($color-highlight, 3*4%)
     }
   }
 </style>

@@ -56,7 +56,6 @@
     ok() {
       this.$emit('update:value', this.output);
       this.$emit('submit', this.output);
-      console.log(this.output)
     }
   }
 </script>
@@ -80,7 +79,8 @@
         height: 64px;
         float: left;
         background: transparent;
-        border: none;
+        // border: none;
+        outline: 1px solid #fff;
         &.ok {
           height: 64*2px;
           float: right;
