@@ -6,10 +6,10 @@
             <span class="rightIcon"></span>  
         </div>
         <div class="form-wrapper">
-            <FormItem field-name="标签名" placeholder="输入标签名"/>
+            <FormItem :value="tag.name" field-name="标签名" placeholder="输入标签名"/>
         </div>
         <div class="button-wrapper">
-            <Button @click="remove">删除标签</Button>
+            <Button>删除标签</Button>
         </div>
     </Layout>
 </template>
