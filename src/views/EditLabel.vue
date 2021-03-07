@@ -52,7 +52,12 @@ import Button from '@/components/Button.vue';
 
         remove(){
             if(this.tag){
-                tagListModel.remove(this.tag.id)
+               if( tagListModel.remove(this.tag.id)){
+                   this.$router.replace('/labels')
+                // this.$router.back()
+               }else{
+                  window.alert('删除失败') 
+               }
             }
         }
 
