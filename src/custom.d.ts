@@ -20,5 +20,8 @@ type Tag = {
 
 interface Window{
     tagList: Tag[];
+    findTag: (id: string) => Tag;
     createTag: (name: string) => void;
+    removeTag: (id: string) => boolean;
+    updateTag: TagListModel['update']; // 表示 updateTag的数据类型与上述TagListModel中 update 类型一样
 }

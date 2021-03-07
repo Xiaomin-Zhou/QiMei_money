@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import tagListModel from '@/models/tagListModel';
+
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import FormItem from '@/components/Money/FormItem.vue'
@@ -34,26 +34,22 @@ import Button from '@/components/Button.vue';
         
         created(){
             const id = this.$route.params.id;
-            tagListModel.fetch();
-            const tags = tagListModel.data;
-            const tag = tags.filter(t => t.id === id)[0];
-            if(tag){
-                this.tag = tag;
-            }else{
+            this.tag = window.findTag(id);
+            if(!this.tag){
                 this.$router.replace('/404')
             }
         }
 
         Update(name: string){
            if(this.tag){
-               tagListModel.update(this.tag.id, name)
+               window.updateTag(this.tag.id, name)
            }
         }
 
         remove(){
             if(this.tag){
-               if( tagListModel.remove(this.tag.id)){
-                   this.$router.replace('/labels')
+               if( window.removeTag(this.tag.id)){
+                    this.$router.replace('/labels')
                 // this.$router.back()
                }else{
                   window.alert('删除失败') 
