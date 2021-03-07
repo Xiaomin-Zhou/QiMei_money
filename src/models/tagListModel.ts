@@ -1,4 +1,4 @@
-import createId from "@/assets/lib/createId";
+import createId from "@/lib/createId";
 
 const localStorageKeyName = 'tagList';
 
