@@ -8,8 +8,8 @@ type RecordItem = {
 type Tag = {
     id: string;
     name: string;
-  }
-  type TagListModel = {
+}
+type TagListModel = {
       data: Tag[];
       fetch: () => Tag[];
       create: (name: string) => 'success' | 'duplicated'; // 联合类型
@@ -19,6 +19,12 @@ type Tag = {
     }
 
 interface Window{
+    // record 变量声明
+    recordList: RecordItem[];
+    createRecord: (record: RecordItem) => void;
+
+
+    //tag 变量声明
     tagList: Tag[];
     findTag: (id: string) => Tag;
     createTag: (name: string) => void;
