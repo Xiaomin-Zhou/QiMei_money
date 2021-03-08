@@ -18,16 +18,6 @@ type TagListModel = {
       save: () => void;
     }
 
-interface Window{
-    // record 变量声明
-    recordList: RecordItem[];
-    createRecord: (record: RecordItem) => void;
-
-
-    //tag 变量声明
-    tagList: Tag[];
-    findTag: (id: string) => Tag;
-    createTag: (name: string) => void;
-    removeTag: (id: string) => boolean;
-    updateTag: TagListModel['update']; // 表示 updateTag的数据类型与上述TagListModel中 update 类型一样
-}
+// interface Window{
+   
+// }

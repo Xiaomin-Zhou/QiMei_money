@@ -6,7 +6,7 @@
     <ul class="current">
        <li v-for="tag in dataSource" :key="tag.id"
           :class="{selected: selectedTags.indexOf(tag)>=0}"
-          @click="toggle(tag.name)">
+          @click="toggle(tag)">
           {{tag.name}}
       </li>
     </ul>
@@ -19,17 +19,17 @@
  import {Component,Prop} from "vue-property-decorator";
 
     @Component
-    export default class Tags extends Vue {
+  export default class Tags extends Vue {
     @Prop() readonly dataSource: string[] | undefined;
     selectedTags: string[] = [];
     toggle(tag: string) {
       const index = this.selectedTags.indexOf(tag);
-      if (index >= 0) { //标签已经存在
+      if (index >= 0) {
         this.selectedTags.splice(index, 1);
       } else {
         this.selectedTags.push(tag);
       }
-      this.$emit('update:value', this.selectedTags)
+      this.$emit('update:value', this.selectedTags);
     }
     create() {
       const name = window.prompt('请输入标签名');
@@ -44,8 +44,8 @@
 </script>
 
 <style lang="scss" scoped>
-.tags {
-    background: #fff;
+  .tags {
+    background: white;
     font-size: 14px;
     padding: 16px;
     flex-grow: 1;
@@ -64,9 +64,9 @@
         padding: 0 16px;
         margin-right: 12px;
         margin-top: 4px;
-        &.selected{
-          background: darken($bg,50%);
-          color: #fff;
+        &.selected {
+          background: darken($bg, 50%);
+          color: white;
         }
       }
     }

@@ -12,6 +12,7 @@
                 placeholder="输入标签名"
             />
         </div>
+
         <div class="button-wrapper">
             <Button @click="remove">删除标签</Button>
         </div>
@@ -25,16 +26,18 @@ import { Component } from 'vue-property-decorator'
 import FormItem from '@/components/Money/FormItem.vue'
 import Layout from '@/components/Layout.vue';
 import Button from '@/components/Button.vue';
+import store from '@/store/index2';
 
     @Component ({
         components: {FormItem, Layout,Button}
     })
     export default class EditLabel extends Vue{
+
         tag?: { id: string; name: string } = undefined;
         
         created(){
             const id = this.$route.params.id;
-            this.tag = window.findTag(id);
+            this.tag = store.findTag(id);
             if(!this.tag){
                 this.$router.replace('/404')
             }
@@ -42,13 +45,13 @@ import Button from '@/components/Button.vue';
 
         Update(name: string){
            if(this.tag){
-               window.updateTag(this.tag.id, name)
+               store.updateTag(this.tag.id, name)
            }
         }
 
         remove(){
             if(this.tag){
-               if( window.removeTag(this.tag.id)){
+               if( store.removeTag(this.tag.id)){
                     this.$router.replace('/labels')
                 // this.$router.back()
                }else{
