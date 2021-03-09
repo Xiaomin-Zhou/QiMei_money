@@ -28,7 +28,7 @@
     type = '-';
     interval = 'day';
     intervalList = intervalList;
-    recordTypeList = recordTypeList
+    recordTypeList = recordTypeList;
   }
 </script>
 
@@ -37,9 +37,12 @@
     background: #fff;
     &.selected{
         background: #12e0c8;       
-    }
-    &::after{
+        &::after{
         display: none;
+        }
     }
-}
+  }
+  ::v-deep .interval-tabs-item {
+    height: 48px;
+  }
 </style>
