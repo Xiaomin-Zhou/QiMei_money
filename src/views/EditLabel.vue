@@ -36,28 +36,23 @@ import Button from '@/components/Button.vue';
         }
         created(){
             const id = this.$route.params.id;
-            this.$store.commit('setcurrentTag',id);
+            this.$store.commit('fetchTags',id);
+            this.$store.commit('setCurrentTag',id);
             if(!this.tag){
                 this.$router.replace('/404')
             }
         }
 
         Update(name: string){
+
            if(this.tag){
-               //gai
-               //store.updateTag(this.tag.id, name)
+             this.$store.commit('updateTag',{id: this.tag.id, name})
            }
         }
 
         remove(){
             if(this.tag){
-                //gai
-            //    if( store.removeTag(this.tag.id)){
-            //         this.$router.replace('/labels')
-            //     // this.$router.back()
-            //    }else{
-            //       window.alert('删除失败') 
-            //    }
+               this.$store.commit("removeTag",this.tag.id)
             }
         }
 
