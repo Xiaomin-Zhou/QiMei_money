@@ -45,7 +45,6 @@
         return ;
       } 
         this.$store.commit('createTag', name)
-
     }
   }
 </script>
