@@ -1,0 +1,51 @@
+[33m2bccc3f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m HEAD@{0}: reset: moving to 2bccc3
+[33m8b75eb7[m HEAD@{1}: commit: 完成列表的 CSS
+[33m2bccc3f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m HEAD@{2}: commit: 更新统计页面的 CSS
+[33m9c956cc[m HEAD@{3}: commit: 删除 Types.vue
+[33m4caaaf5[m HEAD@{4}: commit: 在 Money.vue 里面使用 Tabs
+[33m4d8736b[m HEAD@{5}: commit: 抽离出 Tag.vue， 使用在Statistics.vue 里
+[33m708824f[m HEAD@{6}: commit: 全部转化成Vuex 进行数据管理
+[33me821b88[m HEAD@{7}: commit: 修复 编辑标签页刷新 变成404的 bug
+[33m2909dcf[m HEAD@{8}: commit: 所有 computed 改成 get 函数
+[33mff55dfe[m HEAD@{9}: commit: Labels.vue 使用 Vuex，抽离 TagHelper 作为 mixin
+[33m5ef47ca[m HEAD@{10}: commit: Tags.vue 使用Vuex
+[33maded7fd[m HEAD@{11}: commit: money.vue 使用 Vuex
+[33mc67fe41[m HEAD@{12}: commit: 在使用 vuex之前 的代码
+[33m2aeb81f[m HEAD@{13}: commit: 解决Tag.vue 的bug (新增标签正常保存、显示)
+[33ma8e4562[m HEAD@{14}: commit: 模块化的 store，删除了 models
+[33mf2395ba[m HEAD@{15}: commit: 将所有数据操作封装在 store里
+[33me5c97a3[m HEAD@{16}: commit: 封装 record 的操作
+[33m2371f8a[m HEAD@{17}: commit: 封装 tagList 的增删改查
+[33mb238f4b[m HEAD@{18}: commit: 封装 window.createTag
+[33m11db5a4[m HEAD@{19}: commit: 使用全局 tagList
+[33m5c7f930[m HEAD@{20}: commit: recordListModel 里封装了 create
+[33m7c42dad[m HEAD@{21}: commit: 重新封装 recordListModel & 修改了createId
+[33m43abf3f[m HEAD@{22}: commit: FormItem 纠错
+[33mba94a9b[m HEAD@{23}: commit: 可以生成 id
+[33mfb0fa3a[m HEAD@{24}: reset: moving to fb0fa3
+[33mfb0fa3a[m HEAD@{25}: reset: moving to fb0fa3
+[33mfb0fa3a[m HEAD@{26}: commit: 编辑和删除标签
+[33m7167749[m HEAD@{27}: commit: 可以显示 tag的名字
+[33m42ca265[m HEAD@{28}: commit: 修复了value被赋值的问题
+[33m9131d35[m HEAD@{29}: commit: 解决tag 警告的问题
+[33m2c0d080[m HEAD@{30}: commit: 改造 Notes.vue 成通用组件
+[33maed4989[m HEAD@{31}: commit: 点击标签实现跳转
+[33mc0106ed[m HEAD@{32}: commit: 创建标签
+[33ma883e1c[m HEAD@{33}: commit: numberPad 从简& 可输出小数& 封装出一个 model
+[33mef19588[m HEAD@{34}: commit: 添加 + - 事件，并把record 复制并保存
+[33mcbfe3ef[m HEAD@{35}: commit: 收集4个组件 到record
+[33m3abc3c8[m HEAD@{36}: commit: 完成Tags
+[33m13ac3f7[m HEAD@{37}: commit: 使用v-model 代替 ：value 和 @Input 绑定
+[33mc270355[m HEAD@{38}: commit: 基本完成numberPad， 完成Notes
+[33m42ea693[m HEAD@{39}: commit: 完成 Types组件
+[33mc15e53c[m HEAD@{40}: commit: Money 模块化
+[33m32438f3[m HEAD@{41}: commit: 添加全局样式和全局变量
+[33m1404edd[m HEAD@{42}: commit: 解决 SVG 自带fill属性的问题
+[33mc005d73[m HEAD@{43}: commit: nav css done
+[33mb365741[m HEAD@{44}: commit: 封装 icon
+[33m2243916[m HEAD@{45}: commit: Money 页面布局
+[33m5da03ac[m HEAD@{46}: commit: 添加 404页面
+[33m2e72749[m HEAD@{47}: commit: 全局组件<Nav />
+[33md624f58[m HEAD@{48}: commit: add three files
+[33m2bd3c08[m HEAD@{49}: reset: moving to HEAD
+[33m2bd3c08[m HEAD@{50}: commit (initial): init
