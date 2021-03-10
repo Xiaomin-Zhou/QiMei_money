@@ -7,7 +7,7 @@
                 @update:value="onUpdateNotes"/>
         </div>
         <Tags/>
-        <Tabs :data-source="recordTypeList"
+        <Tabs class-prefix="type" :data-source="recordTypeList"
           :value.sync="record.type"/>
     </Layout>
 </template>
@@ -51,8 +51,17 @@
     }
 </script>
 
-<style lang="scss">
-.layout-content {
+<style lang="scss"  scoped>
+::v-deep .type-tabs-item{
+    background: #fff;
+    &.selected{
+        background: #12e0c8;       
+        &::after{
+        display: none;
+        }
+    }
+  }
+::v-deep .layout-content {
     display: flex;
     flex-direction: column-reverse;
   }
