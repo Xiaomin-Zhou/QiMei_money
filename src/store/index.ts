@@ -13,15 +13,14 @@ const store =  new Vuex.Store({
     currentTag: undefined
   }as RootState,
   mutations: { //methods
-    setCurrentTag(state, id: string) {
-      state.currentTag = state.tagList.filter(t => t.id === id)[0];
-    },
+
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     },
     createRecord(state,record){
         const record2: RecordItem = clone(record);
         record2.createdAt = new Date().toISOString();
+        record2.clock = new Date().toISOString();
         state.recordList.push(record2);
         store.commit('saveRecords');
     },
@@ -30,6 +29,9 @@ const store =  new Vuex.Store({
     },
 
     // tagList
+    setCurrentTag(state, id: string) {
+      state.currentTag = state.tagList.filter(t => t.id === id)[0];
+    },
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
     },

@@ -3,18 +3,21 @@
       <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
       <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
       <ol>
-      <li v-for="(group,index) in result" :key="index">
+      <li v-for="(group,index) in groupedList" :key="index">
         <h3 class="title">{{beautify(group.title)}}
-          <div class="time">{{time(group.title)}}</div>
+          <span>￥{{group.total}}</span>
         </h3>
+        <hr>
         <ol>
           <li v-for="item in group.items" :key="item.id"
               class="record"
-          >
-            <span>{{tagString(item.tags)}}</span>
-            <span class="notes">{{item.notes}}</span>
-            <span>￥{{item.amount}} </span>
+          > 
+            <div class="tags">{{tagString(item.tags)}}</div>            
+            <div class="time">{{time(item.clock)}}</div>
+            <div class="notes">{{item.notes}}</div>
+            <div>￥{{item.amount}} </div>
           </li>
+
         </ol>
       </li>
     </ol>
@@ -29,6 +32,7 @@
   import intervalList from '@/constants/intervalList';
   import recordTypeList from '@/constants/recordTypeList';
   import dayjs from 'dayjs'
+  import clone from '@/lib/clone';
  
   @Component({
     components: {Tabs},
@@ -53,23 +57,36 @@ beautify(string: string) {
       }
     }
 time(string: string){
-     return dayjs(string).format('HH:mm')
+    return dayjs(string).format('HH:mm')
 }
-
     get recordList() {
       return (this.$store.state as RootState).recordList;
     }
-    get result() {
+    get groupedList() {
       const {recordList} = this;
-      type HashTableValue = { title: string; items: RecordItem[]}
-      const hashTable: { [key: string]: HashTableValue} = {};
-      for (let i = 0; i < recordList.length; i++) {
-        const [date] =[ recordList[i].createdAt!];
-        hashTable[date] = hashTable[date] || {title: date, items: []};
-        hashTable[date].items.push(recordList[i]);
-        console.log( hashTable[date]);
-      }    
-      return hashTable;
+      if (recordList.length === 0) {return [];}
+
+      const newList = clone(recordList)
+        .filter(r => r.type === this.type)
+        .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+      
+      type Result = { title: string; total?: number; items: RecordItem[] }[]
+      const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]], time: dayjs(newList[0].createdAt).format('HH:mm')}];
+
+      for (let i = 1; i < newList.length; i++) {
+         const current = newList[i];
+         const last = result[result.length - 1];
+        if (dayjs(current.createdAt).isSame(dayjs(last.title), 'day')){
+            last.items.push(current);
+        }else { 
+          result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]});
+        }         
+      }
+   
+      result.map(group => {
+          group.total = group.items.reduce((sum, item) => sum + item.amount, 0);
+      });
+      return result;
     }
     beforeCreate() {
       this.$store.commit('fetchRecords');
@@ -109,13 +126,18 @@ time(string: string){
     background: white;
     @extend %item;
   }
+  .tags{
+    border: 1px solid green;
+  }
   .notes {
     margin-right: auto;
     margin-left: 16px;
     color: #999;
+    border: 1px solid blue;
   }
   .time{
-    color:#999;
+    width:500px;
+    color:#12e0c8;
     font-size: 12px;
     border: 1px solid red;
     margin-right: 60%;
