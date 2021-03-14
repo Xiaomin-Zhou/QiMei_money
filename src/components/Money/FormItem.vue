@@ -33,7 +33,7 @@
 .FormItem{
     font-size: 14px;
     display: block;
-    padding-left: 16px;
+    padding-left: 4px;
     display: flex;
     justify-content: center;
     align-items: center;

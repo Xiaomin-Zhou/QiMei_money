@@ -2,6 +2,9 @@
     <Layout class-prefix="layout">
         <NumberPad :value.sync="record.amount" @submit="saveRecord"/>       
         <div class="notes">
+            <div class="icon">
+                <Icon name="write"/>
+            </div>
             <FormItem  field-name="备注"
                 placeholder="在这里输入备注"
                 :value.sync="record.notes" 
@@ -87,7 +90,12 @@
     display: flex;
     flex-direction: column-reverse;
   }
-  .notes{
-    padding: 12px 0;
-  }
+    .notes {
+        display: flex;
+        align-items: center;
+        padding: 4px 8px;
+        font-size: 14px;
+        border-top: 1px solid #f5f5f5;
+        background: lighten(#f5f5f5, 4%);
+    }
 </style>
