@@ -32,7 +32,7 @@
     inputContent(event: MouseEvent) {
       const button = (event.target as HTMLButtonElement);
       const input = button.textContent!;
-      if (this.output.length === 16) { return; }
+      if (this.output.length === 8) { return; }
       if (this.output === '0') {
         if ('0123456789'.indexOf(input) >= 0) {
           this.output = input;

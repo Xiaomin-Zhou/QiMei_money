@@ -3,10 +3,18 @@
         <NumberPad :value.sync="record.amount" @submit="saveRecord"/>       
         <div class="notes">
             <FormItem  field-name="备注"
-                placeholder="在这里输入备注" 
-                @update:value="onUpdateNotes"/>
+                placeholder="在这里输入备注"
+                :value.sync="record.notes" 
+            />
         </div>
-        <Tags/>
+        <!-- <Tags @update:value= "record.tags = $event"/> -->
+        <!-- gai -->
+        <Tags v-if="record.type === '-'"  :selected-tag.sync="record.tags"
+                  />
+        <Tags v-else-if="record.type === '+'" :selected-tag.sync="record.tags"
+                  />
+        <!-- gai -->
+
         <Tabs class-prefix="type" :data-source="recordTypeList"
           :value.sync="record.type"/>
     </Layout>
@@ -29,6 +37,9 @@
         get recordList(){
             return this.$store.state.recordList;
         }
+      beforeCreate(){
+          this.$store.commit('fetchTags'); 
+      } 
 
         recordTypeList = recordTypeList;
         record: RecordItem = {
@@ -45,7 +56,16 @@
         // }   
         
         saveRecord() {
+            if(!this.record.tags ||this.record.tags.length===0){
+                return window.alert('请至少选一个标签')
+            }
             this.$store.commit('createRecord',this.record)
+            if(this.$store.state.createRecordError ===null){
+                window.alert('保存成功')
+                this.record.notes = ""
+                //改
+                this.record.tags = []
+            }
         }
    
     }
@@ -54,7 +74,9 @@
 <style lang="scss"  scoped>
 ::v-deep .type-tabs-item{
     background: #fff;
+    margin-bottom: 1px;
     &.selected{
+        
         background: #12e0c8;       
         &::after{
         display: none;

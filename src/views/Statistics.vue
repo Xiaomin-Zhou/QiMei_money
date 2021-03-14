@@ -1,8 +1,7 @@
 <template>
   <Layout>
       <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-      <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
-      <ol>
+      <ol v-if="groupedList.length>0">
       <li v-for="(group,index) in groupedList" :key="index">
         <h3 class="title">{{beautify(group.title)}}
           <span>￥{{group.total}}</span>
@@ -12,15 +11,21 @@
           <li v-for="item in group.items" :key="item.id"
               class="record"
           > 
-            <div class="tags">{{tagString(item.tags)}}</div>            
+            <div class="tags">{{item.tags.name}}</div>           
             <div class="time">{{time(item.clock)}}</div>
             <div class="notes">{{item.notes}}</div>
-            <div>￥{{item.amount}} </div>
+            <div class="amount">
+              ￥{{item.amount}}
+            </div>
           </li>
 
         </ol>
       </li>
     </ol>
+    <div v-else class="None-Record">
+      <Icon name="noRecord"/>
+       <div>您还没有相关记录哦~</div>
+       </div> 
   </Layout>
 </template>
 
@@ -29,7 +34,6 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import Tabs from '@/components/Tabs.vue';
-  import intervalList from '@/constants/intervalList';
   import recordTypeList from '@/constants/recordTypeList';
   import dayjs from 'dayjs'
   import clone from '@/lib/clone';
@@ -38,27 +42,25 @@
     components: {Tabs},
   })
   export default class Statistics extends Vue {
-     tagString(tags: Tag[]) {
-      return tags.length === 0 ? '无' : tags.join(',');
+
+    beautify(string: string) {
+          const day = dayjs(string);     
+          const now = dayjs();
+          if (day.isSame(now, 'day')) {
+            return '今天';
+          } else if (day.isSame(now.subtract(1, 'day'), 'day')) {
+            return '昨天';
+          } else if (day.isSame(now.subtract(2, 'day'), 'day')) {
+            return '前天';
+          } else if (day.isSame(now, 'year')) {
+            return day.format('M月D日');
+          } else {
+            return day.format('YYYY年M月D日');
+          }
+        }
+    time(string: string){
+        return dayjs(string).format('HH:mm')
     }
-beautify(string: string) {
-      const day = dayjs(string);     
-      const now = dayjs();
-      if (day.isSame(now, 'day')) {
-        return '今天';
-      } else if (day.isSame(now.subtract(1, 'day'), 'day')) {
-        return '昨天';
-      } else if (day.isSame(now.subtract(2, 'day'), 'day')) {
-        return '前天';
-      } else if (day.isSame(now, 'year')) {
-        return day.format('M月D日');
-      } else {
-        return day.format('YYYY年M月D日');
-      }
-    }
-time(string: string){
-    return dayjs(string).format('HH:mm')
-}
     get recordList() {
       return (this.$store.state as RootState).recordList;
     }
@@ -69,10 +71,10 @@ time(string: string){
       const newList = clone(recordList)
         .filter(r => r.type === this.type)
         .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
-      
+      if (newList.length === 0) {return [];}
       type Result = { title: string; total?: number; items: RecordItem[] }[]
-      const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]], time: dayjs(newList[0].createdAt).format('HH:mm')}];
-
+      const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
+  //, time: dayjs(newList[0].createdAt).format('HH:mm')
       for (let i = 1; i < newList.length; i++) {
          const current = newList[i];
          const last = result[result.length - 1];
@@ -86,14 +88,13 @@ time(string: string){
       result.map(group => {
           group.total = group.items.reduce((sum, item) => sum + item.amount, 0);
       });
+      
       return result;
     }
     beforeCreate() {
       this.$store.commit('fetchRecords');
     }
     type = '-';
-    interval = 'day';
-    intervalList = intervalList;
     recordTypeList = recordTypeList;
   }
 </script>
@@ -119,27 +120,46 @@ time(string: string){
     justify-content: space-between;
     align-content: center;
   }
+   %grid{
+     margin-left: 3px;
+     margin-top: 3px;
+   }
   .title {
     @extend %item;
   }
   .record {
     background: white;
-    @extend %item;
+     display: grid;
+     grid-template-columns: 25% 10% 1fr 25%;
   }
   .tags{
-    border: 1px solid green;
+    grid-column: 1/2;
+    @extend %grid;
   }
-  .notes {
-    margin-right: auto;
-    margin-left: 16px;
-    color: #999;
-    border: 1px solid blue;
-  }
+
   .time{
+    grid-column: 2/3;
     width:500px;
     color:#12e0c8;
     font-size: 12px;
-    border: 1px solid red;
-    margin-right: 60%;
+    @extend %grid;
   }
+  .notes {
+    grid-column: 3/4;
+    color: #999;
+    @extend %grid;
+  }
+  .amount{
+    grid-column: 4/5;
+    @extend %grid;
+  }
+  .None-Record{
+    padding: 50px;
+    text-align: center;
+    .icon {
+    width: 64px;
+    height: 64px;
+  }
+  }
+
 </style>

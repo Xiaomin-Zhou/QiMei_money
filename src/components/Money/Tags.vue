@@ -4,9 +4,8 @@
       <button @click="create">新增标签</button>
     </div>
     <ul class="current">
-       <li v-for="tag in tagList" :key="tag.id"
-          :class="{selected: selectedTags.indexOf(tag)>=0}"
-          @click="toggle(tag)">
+       <li v-for="tag in tagList" :key="tag.id" :class="{selected: tag.name === selectedTag.name}" @click="select(tag)">
+
           {{tag.name}}
       </li>
     </ul>
@@ -19,22 +18,21 @@
  import Vue from "vue";
  import {Component,Prop} from "vue-property-decorator";
 
-    @Component
+  @Component
   export default class Tags extends Vue {
-    selectedTags: string[] = [];
+    
+    @Prop({required: true}) selectedTag!: Tag[];
+
+    select(tag: Tag[]) {
+            this.$emit('update:selectedTag', tag);
+        }
 
     get tagList(){
           return this.$store.state.tagList;
     }
-    toggle(tag: string) {
-      const index = this.selectedTags.indexOf(tag);
-      if (index >= 0) {
-        this.selectedTags.splice(index, 1);
-      } else {
-        this.selectedTags.push(tag);
-      }
-      this.$emit('update:value', this.selectedTags);
-    }
+
+
+    
     create() {
       const name = window.prompt('请输入标签名');
       if (!name) {
@@ -43,6 +41,15 @@
       } 
         this.$store.commit('createTag', name)
     }
+        // toggle(tag: string) {
+    //   const index = this.selectedTags.indexOf(tag);
+    //   if (index >= 0) {
+    //     this.selectedTags.splice(index, 1);
+    //   } else {
+    //     this.selectedTags.push(tag);
+    //   }
+    //   this.$emit('update:value', this.selectedTags);
+    // }
   }
 </script>
 
