@@ -11,12 +11,10 @@
           <li v-for="item in group.items" :key="item.id"
               class="record"
           > 
-            <div class="tags">{{item.tags.name}}</div>           
-            <div class="time">{{time(item.clock)}}</div>
-            <div class="notes">{{item.notes}}</div>
-            <div class="amount">
-              ￥{{item.amount}}
-            </div>
+            <div class="tags">{{item.tags.name}}</div> 
+            <div class="time">{{time(item.clock)}}</div>                      
+            <div class="notes">{{item.notes}}</div>  
+            <div class="amount">￥{{item.amount}}</div>
           </li>
 
         </ol>
@@ -120,38 +118,47 @@
     justify-content: space-between;
     align-content: center;
   }
-   %grid{
-     margin-left: 3px;
-     margin-top: 3px;
-   }
+  //  %grid{
+  //    margin-left: 3px;
+  //    margin-top: 3px;
+  //  }
   .title {
     @extend %item;
   }
   .record {
-    background: white;
-     display: grid;
-     grid-template-columns: 25% 10% 1fr 25%;
+    // @extend %item;
+    display: grid;
+    grid-template-columns: 20% 25% 1fr 20% ;
+    background: white;     
   }
   .tags{
     grid-column: 1/2;
-    @extend %grid;
+    // @extend %grid;
+   place-self: center left;
+   margin-left: 18px;
   }
-
   .time{
     grid-column: 2/3;
-    width:500px;
-    color:#12e0c8;
+    // @extend %grid;
+    color:#0da795;
     font-size: 12px;
-    @extend %grid;
+    place-self: center;
   }
   .notes {
     grid-column: 3/4;
+    // @extend %grid;
     color: #999;
-    @extend %grid;
+    font-size: 12px;
+     place-self: center left;
+    
   }
   .amount{
     grid-column: 4/5;
-    @extend %grid;
+    // @extend %grid;
+    place-self: center right;
+    color:#0da795;
+    margin-right: 18px;
+
   }
   .None-Record{
     padding: 50px;
@@ -159,7 +166,7 @@
     .icon {
     width: 64px;
     height: 64px;
-  }
+    }
   }
 
 </style>
