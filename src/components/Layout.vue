@@ -1,5 +1,5 @@
 <template>
-<div class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`">
+<div class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`" :style="{height: scrollerHeight}">
     <div class="content" :class="classPrefix && `${classPrefix}-content`   ">
         <slot/>
         </div>
@@ -8,11 +8,17 @@
 </template>
 
 <script lang="ts">
+  import Vue from 'vue';
+  import {Component,Prop} from 'vue-property-decorator';
+  @Component
+export  default class Layout extends Vue{
+    @Prop(String) classPrefix?: string;
 
-export default({
-    props: ['classPrefix'],
-    name: "Layout"
-})
+    // :style="{height: scrollerHeight}
+     get scrollerHeight(){
+      return document.documentElement.clientHeight + 'px'
+    }
+}
 </script>
 <style lang="scss" scoped>
 .layout-wrapper{
